@@ -27,12 +27,17 @@ object Tasks {
         }
     }
 
-     fun addTask(item: TaskItem) {
+    fun addTask(item: TaskItem) {
         ITEMS.add(item)
     }
 
     private fun createDummyItem(position: Int): TaskItem {
-        return TaskItem(position.toString(), "Item " + position, makeDetails(position),IMPORTANCE.NORMAL)
+        return TaskItem(
+            position.toString(),
+            "Item " + position,
+            makeDetails(position),
+            IMPORTANCE.NORMAL
+        )
     }
 
     private fun makeDetails(position: Int): String {
@@ -44,39 +49,39 @@ object Tasks {
         return builder.toString()
     }
 
+}
 
-    /**
-     * A dummy item representing a piece of content.
-     */
-    data class TaskItem(val id: String, val title: String, val description: String, val importance: IMPORTANCE): Parcelable {
-        constructor(parcel: Parcel) : this(
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            IMPORTANCE.values()[parcel.readInt()]
-        ) {
+/**
+ * A dummy item representing a piece of content.
+ */
+data class TaskItem(val id: String, val title: String, val description: String, val importance: IMPORTANCE): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        IMPORTANCE.values()[parcel.readInt()]
+    ) {
+    }
+
+    override fun toString(): String = title
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(title)
+        parcel.writeString(description)
+        parcel.writeInt(importance.ordinal)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<TaskItem> {
+        override fun createFromParcel(parcel: Parcel): TaskItem {
+            return TaskItem(parcel)
         }
 
-        override fun toString(): String = title
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeString(id)
-            parcel.writeString(title)
-            parcel.writeString(description)
-            parcel.writeInt(importance.ordinal)
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<TaskItem> {
-            override fun createFromParcel(parcel: Parcel): TaskItem {
-                return TaskItem(parcel)
-            }
-
-            override fun newArray(size: Int): Array<TaskItem?> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<TaskItem?> {
+            return arrayOfNulls(size)
         }
     }
 }

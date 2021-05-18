@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.mytodolist.data.IMPORTANCE
 import com.example.mytodolist.data.Tasks
 
-import com.example.mytodolist.data.Tasks.TaskItem
+import com.example.mytodolist.data.TaskItem
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].

@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.RadioGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mytodolist.data.IMPORTANCE
+import com.example.mytodolist.data.TaskItem
 import com.example.mytodolist.data.Tasks
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -48,8 +49,8 @@ class AddTaskFragment : Fragment() {
         saveButton.setOnClickListener{
             saveTask()
         }
-       //var addButton = view.findViewById<FloatingActionButton>(R.id.addButton)
-       //addButton.hide()
+        //var addButton = view.findViewById<FloatingActionButton>(R.id.addButton)
+        //addButton.hide()
     }
 
     private fun saveTask(){
@@ -63,13 +64,13 @@ class AddTaskFragment : Fragment() {
         }
         if(title.isEmpty()) title = getString(R.string.default_task_title)+" ${Tasks.ITEMS.size + 1}"
         if(description.isEmpty()) description = getString(R.string.no_desc_msg)
-        val taskItem = Tasks.TaskItem({title + description}.hashCode().toString(),title,description,importance)
+        val taskItem = TaskItem({title + description}.hashCode().toString(),title,description,importance)
         Tasks.addTask(taskItem)
 
         val inputMethodManager: InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(titleInput.windowToken, 0)
         findNavController().popBackStack()
-       // findNavController().navigate(R.id.action_addTaskFragment_to_taskFragment)
+        // findNavController().navigate(R.id.action_addTaskFragment_to_taskFragment)
     }
 
 

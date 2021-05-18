@@ -31,9 +31,10 @@
         android:id="@+id/displayTaskFragment"
         android:name="com.example.mytodolist.DisplayTaskFragment"
         android:label="fragment_display_task"
-        tools:layout="@layout/fragment_display_task" >
+        tools:layout="@layout/fragment_display_task">
+
         <argument
             android:name="task"
-            app:argType="com.example.mytodolist.data.Tasks$TaskItem" />
+            app:argType="com.example.mytodolist.data.TaskItem" />
     </fragment>
 </navigation>
